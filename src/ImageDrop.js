@@ -17,7 +17,11 @@ export class ImageDrop {
     this.handlePaste = this.handlePaste.bind(this);
     // listen for drop and paste events
     this.quill.root.addEventListener('drop', this.handleDrop, false);
-    this.quill.root.addEventListener('paste', this.handlePaste, false);
+
+    // Firefox supports paste without any plugin needed
+    if (navigator.userAgent.indexOf('Firefox') === -1) {
+      this.quill.root.addEventListener('paste', this.handlePaste, false);
+    }
   }
 
   /**
